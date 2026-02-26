@@ -307,10 +307,34 @@ export async function saveMatchAndUpdateState({
       scoreB
     });
 
+    // Get the most recent session for this group, or create one if none exists.
+    // The matches table requires a non-null session_id (added in migration 004).
+    const sessionRows = await tx.unsafe<Array<{ id: string }>>(
+      `
+        select id from sessions
+        where group_id = $1
+        order by started_at desc, id desc
+        limit 1
+      `,
+      [groupId]
+    );
+
+    let sessionId: string;
+    if (sessionRows.length > 0) {
+      sessionId = sessionRows[0].id;
+    } else {
+      const newSession = await tx.unsafe<Array<{ id: string }>>(
+        `insert into sessions (group_id) values ($1) returning id`,
+        [groupId]
+      );
+      sessionId = newSession[0].id;
+    }
+
     const matchRows = await tx.unsafe<Match[]>(
       `
         insert into matches (
           group_id,
+          session_id,
           players,
           team_a,
           team_b,
@@ -319,7 +343,7 @@ export async function saveMatchAndUpdateState({
           rating_deltas,
           pre_match_ratings
         )
-        values ($1, $2::uuid[], $3::uuid[], $4::uuid[], $5, $6, $7::jsonb, $8::jsonb)
+        values ($1, $2::uuid, $3::uuid[], $4::uuid[], $5::uuid[], $6, $7, $8::jsonb, $9::jsonb)
         returning
           id,
           group_id,
@@ -334,6 +358,7 @@ export async function saveMatchAndUpdateState({
       `,
       [
         groupId,
+        sessionId,
         playerIds,
         teamA,
         teamB,
