@@ -1,0 +1,160 @@
+:root {
+  --bg: #f8f6ee;
+  --bg-accent: #e8f5e9;
+  --card: #fffaf0;
+  --text: #1f2937;
+  --accent: #0c6b58;
+  --muted: #6b7280;
+  --border: #d2d6db;
+  --secondary-bg: #ffffff;
+}
+
+[data-theme="dark"] {
+  --bg: #0f172a;
+  --bg-accent: #0b2a2b;
+  --card: #111827;
+  --text: #e5e7eb;
+  --accent: #11b981;
+  --muted: #9ca3af;
+  --border: #374151;
+  --secondary-bg: #1f2937;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Source Sans 3", "Helvetica Neue", sans-serif;
+  background: radial-gradient(circle at top right, var(--bg-accent) 0%, var(--bg) 55%);
+  color: var(--text);
+}
+
+a {
+  color: inherit;
+}
+
+main {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+button {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: var(--accent);
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+button.secondary {
+  background: var(--secondary-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+input,
+select {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+  font: inherit;
+}
+
+ul {
+  padding-left: 18px;
+}
+
+.small {
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.next-match-vs {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  margin: 10px 0;
+}
+
+.next-match-pair {
+  text-align: center;
+  line-height: 1.35;
+  font-weight: 700;
+  max-width: 220px;
+}
+
+.next-match-pair-left {
+  justify-self: end;
+  text-align: right;
+}
+
+.next-match-pair-right {
+  justify-self: start;
+  text-align: left;
+}
+
+.next-match-score {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.score-input {
+  width: 84px;
+  text-align: center;
+}
+
+.score-sep {
+  min-width: 8px;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  main {
+    padding: 14px;
+  }
+
+  .card {
+    padding: 14px;
+  }
+
+  .next-match-vs {
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  .next-match-score {
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .score-input {
+    width: 64px;
+    padding: 9px 8px;
+  }
+
+  .next-match-pair {
+    font-size: 0.96rem;
+    max-width: 140px;
+  }
+}

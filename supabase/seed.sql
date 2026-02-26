@@ -1,0 +1,2 @@
+-- Insert a demo group after running the migration.
+-- Use API create endpoint for proper bcrypt pin hashing.
