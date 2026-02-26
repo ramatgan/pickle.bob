@@ -91,6 +91,7 @@ export async function POST(
       }
     }
 
+    console.error("[submit_score] unhandled error:", error);
     return serverError();
   }
 }
