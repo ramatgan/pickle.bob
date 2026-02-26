@@ -94,3 +94,4 @@ After each submitted score:
   - expected outcome from team rating gap
   - score margin (larger margin = larger move)
 - Match row stores `rating_deltas` so history shows who went up/down.
+# pickle.bob
